@@ -1,10 +1,11 @@
 package com.ricarrdev.todolist.domain.Tasks;
 
-import com.ricarrdev.todolist.domain.entity.Users;
+import com.ricarrdev.todolist.domain.Users.Users;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of="id")
 public class Tasks {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String titulo;
@@ -25,7 +26,9 @@ public class Tasks {
     @Enumerated(EnumType.STRING)
     private TaskStatus taskStatus;
 
+    @CreationTimestamp
     private LocalDateTime dataCriacao;
+
     private LocalDateTime dataConclusao;
 
     @ManyToOne
