@@ -1,0 +1,39 @@
+services:
+  app:
+    image: openjdk:23-jdk-slim
+    container_name: todolist_app
+    ports:
+      - "80:80"
+    volumes:
+      - ./target/todolist-0.0.1-SNAPSHOT.jar:/todolist/todolist.jar
+    command: ["java", "-jar", "/todolist/todolist.jar"]
+    networks:
+      - public_network
+      - private_network
+    restart: always
+
+  db-postgres:
+    image: postgres:17.4
+    container_name: db_postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: tododb
+    networks:
+      - private_network
+
+
+  nginx:
+    image: nginx:1.27.4-alpine
+    container_name: nginx_proxy
+    ports:
+      - "81:81"
+    restart: always
+    networks:
+      - public_network
+
+networks:
+  private_network:
+    driver: bridge
+  public_network:
+    driver: bridge
