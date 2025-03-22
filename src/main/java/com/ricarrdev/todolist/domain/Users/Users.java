@@ -1,6 +1,6 @@
 package com.ricarrdev.todolist.domain.Users;
 
-import com.ricarrdev.todolist.domain.Tasks.Tasks;
+import com.ricarrdev.todolist.domain.Tasks.TaskDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -38,5 +38,5 @@ public class Users {
     private UserType userType;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Tasks> tasks;
+    private List<TaskDTO> tasks;
 }

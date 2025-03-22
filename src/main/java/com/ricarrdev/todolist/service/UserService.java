@@ -37,7 +37,11 @@ public class UserService {
     }
 
     public Users findUserById(UUID id) throws Exception {
-        return this.userRepository.findById(id).orElseThrow(() -> new Exception("Usuario não encontrado"));
+        return this.userRepository.findUserById(id).orElseThrow(() -> new Exception("Usuario não encontrado"));
+    }
+
+    public Users findUserByDocumento(String documento) throws Exception {
+        return this.userRepository.findUserByDocumento(documento).orElseThrow(() -> new Exception("Usuario não encontrado"));
     }
 
     public void delete(UUID id) {
