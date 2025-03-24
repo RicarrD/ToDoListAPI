@@ -15,7 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode(of="id")
-public class TaskDTO {
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
