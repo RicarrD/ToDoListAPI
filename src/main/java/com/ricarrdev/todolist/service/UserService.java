@@ -24,10 +24,6 @@ public class UserService {
         }
     }
 
-    public void save(Users usuario) {
-        this.userRepository.save(usuario);
-    }
-
     public List<Users> findAll() throws Exception {
         List<Users> users = this.userRepository.findAll();
         if (users.isEmpty()) {
@@ -42,6 +38,10 @@ public class UserService {
 
     public Users findUserByDocumento(String documento) throws Exception {
         return this.userRepository.findUserByDocumento(documento).orElseThrow(() -> new Exception("Usuario não encontrado"));
+    }
+
+    public void save(Users usuario) {
+        this.userRepository.save(usuario);
     }
 
     public void delete(UUID id) {
