@@ -1,6 +1,12 @@
 package com.ricarrdev.todolist.dtos;
 
-import java.util.UUID;
+import com.ricarrdev.todolist.domain.Tasks.TaskStatus;
 
-public record TaskDTO(String titulo, String descricao, UUID usuario_id) {
+import java.time.LocalDateTime;
+
+public record TaskDTO(String titulo, String descricao, TaskStatus taskStatus, LocalDateTime dataCriacao) {
+    public TaskDTO {
+        if (taskStatus == null) taskStatus = TaskStatus.PENDING;
+        if (dataCriacao == null) dataCriacao = LocalDateTime.now();
+    }
 }

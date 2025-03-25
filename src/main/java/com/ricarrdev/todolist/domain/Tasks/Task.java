@@ -1,6 +1,6 @@
 package com.ricarrdev.todolist.domain.Tasks;
 
-import com.ricarrdev.todolist.domain.Users.Users;
+import com.ricarrdev.todolist.dtos.TaskDTO;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,7 +20,9 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(unique = true)
     private String titulo;
+
     private String descricao;
 
     @Enumerated(EnumType.STRING)
@@ -31,7 +33,10 @@ public class Task {
 
     private LocalDateTime dataConclusao;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Users usuario;
+    public Task(TaskDTO data) {
+        this.titulo = data.titulo();
+        this.descricao = data.descricao();
+        this.taskStatus = data.taskStatus();
+        this.dataCriacao = data.dataCriacao();
+    }
 }

@@ -14,9 +14,6 @@ import java.util.UUID;
 public class TaskService {
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private TaskRepository taskRepository;
 
     public List<Task> findAll() {
@@ -40,7 +37,11 @@ public class TaskService {
         this.taskRepository.deleteById(id);
     }
 
-    public void save(Task tasks) {
-        this.taskRepository.save(tasks);
+    public void save(TaskDTO data) {
+        Task task = new Task(data);
+        task.setTitulo(data.titulo());
+        task.setDescricao(data.descricao());
+        task.setTaskStatus(data.taskStatus());
+        task.setDataCriacao(data.dataCriacao());
     }
 }
