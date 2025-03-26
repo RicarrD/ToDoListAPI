@@ -2,9 +2,7 @@ package com.ricarrdev.todolist.domain.Tasks;
 
 import com.ricarrdev.todolist.dtos.TaskDTO;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -14,6 +12,8 @@ import java.util.UUID;
 @Table(name="tasks")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of="id")
 public class Task {
     @Id

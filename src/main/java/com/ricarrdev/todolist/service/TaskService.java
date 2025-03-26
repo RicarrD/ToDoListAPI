@@ -37,11 +37,8 @@ public class TaskService {
         this.taskRepository.deleteById(id);
     }
 
-    public void save(TaskDTO data) {
-        Task task = new Task(data);
-        task.setTitulo(data.titulo());
-        task.setDescricao(data.descricao());
-        task.setTaskStatus(data.taskStatus());
-        task.setDataCriacao(data.dataCriacao());
+    public Task save(TaskDTO data) {
+        Task newTask = new Task(data);
+        return this.taskRepository.save(newTask);
     }
 }
