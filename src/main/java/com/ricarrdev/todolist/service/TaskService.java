@@ -6,6 +6,7 @@ import com.ricarrdev.todolist.dtos.TaskDTO;
 import com.ricarrdev.todolist.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -40,5 +41,16 @@ public class TaskService {
     public Task save(TaskDTO data) {
         Task newTask = new Task(data);
         return this.taskRepository.save(newTask);
+    }
+
+    @Transactional
+    public Task update(UUID id) throws Exception {
+        Task task = taskRepository.findTasksById(id).orElseThrow(() -> new Exception("Tarefa não existe"));
+        if (task.getTaskStatus() == TaskStatus.PENDING) {
+            task.setTaskStatus(TaskStatus.DONE);
+            return taskRepository.save(task);
+        } else {
+            throw new Exception("Tarefa já feita");
+        }
     }
 }

@@ -49,4 +49,10 @@ public class TaskController {
         taskService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<?> update(@PathVariable UUID id) throws Exception {
+        Task task = taskService.update(id);
+        return ResponseEntity.ok(task);
+    }
 }
