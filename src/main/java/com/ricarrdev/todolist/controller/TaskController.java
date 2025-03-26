@@ -1,6 +1,7 @@
 package com.ricarrdev.todolist.controller;
 
 import com.ricarrdev.todolist.domain.Tasks.Task;
+import com.ricarrdev.todolist.domain.Tasks.TaskStatus;
 import com.ricarrdev.todolist.dtos.TaskDTO;
 import com.ricarrdev.todolist.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/tasks")
@@ -29,7 +31,22 @@ public class TaskController {
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
-    // create a method to done task
-    // implement delete task
-    // implement all the methods in service
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> findTaskById(@PathVariable UUID id) throws Exception {
+        Task tasks = this.taskService.findTaskById(id);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<List<Task>> findTasksByTaskStatus(@RequestParam TaskStatus status) throws Exception {
+        List<Task> tasks = this.taskService.findTasksByTaskStatus(status);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) throws Exception {
+        taskService.findTaskById(id);
+        taskService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
